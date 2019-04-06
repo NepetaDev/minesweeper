@@ -42,7 +42,8 @@ class App extends Component {
     this.setState({
       width: width,
       height: height,
-      bombs: bombs
+      bombs: bombs,
+      generated: false
     }, this.generateBoard);
   }
 
