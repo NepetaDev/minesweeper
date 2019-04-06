@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { isMobile } from "react-device-detect";
 
 class App extends Component {
   constructor() {
@@ -268,7 +269,7 @@ class App extends Component {
       <div className="App" onContextMenu={(e) => {e.preventDefault()}}>
         <div className="logo"><img className="logo" src="http://nepeta.me/assets/nepeta.png" alt="Nepeta" /></div>
         <h1>Minesweeper</h1>
-        <button onClick={this.toggleFlagging.bind(this)}>{this.state.isFlagging ? 'Uncover tiles' : 'Place flags'}</button>
+        {isMobile ? (<button onClick={this.toggleFlagging.bind(this)}>{this.state.isFlagging ? 'Uncover tiles' : 'Place flags'}</button>) : null}
         <div className="wrap">
           {this.renderPopup()}
           <div className={"board " + (this.state.gameOver ? "gameOver" : "")}>
