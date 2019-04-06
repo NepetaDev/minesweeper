@@ -107,7 +107,7 @@ class App extends Component {
   }
 
   uncover(x, y) {
-    if (this.state.input[x][y] === 1) return;
+    if (this.state.input[x][y] > 0) return;
 
     if (!this.state.started && this.state.board[x][y] === -1) {
       this.generateBoard([x, y]);
