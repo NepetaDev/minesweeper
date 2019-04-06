@@ -92,7 +92,7 @@ class App extends Component {
         case 2:
           return '🚩';
         default:
-          return '\u00A0';
+         //return '\u00A0';
       }
     }
 
@@ -184,17 +184,22 @@ class App extends Component {
   checkVictoryConditions() {
     if (this.state.gameOver) return;
 
+    let areAllNonBombCellsUncovered = true;
+    let areAllBombsMarked = true;
+    let areAllFlagsOnBombs = true;
+
     for (let x = 0; x < this.state.board.length; x++) {
       for (let y = 0; y < this.state.board[x].length; y++) {
         let value = this.state.board[x][y];
         let input = this.state.input[x][y];
 
-        if (value === -1 && input !== 2) return; // found an unmarked bomb; no win yet
-        if (value !== -1 && input === 2) return; // found a flag that's not on a bomb; no win yet
+        if (value !== -1 && !input) areAllNonBombCellsUncovered = false;
+        if (value === -1 && input !== 2) areAllBombsMarked = false; // found an unmarked bomb
+        if (value !== -1 && input === 2) areAllFlagsOnBombs = false; // found a flag that's not on a bomb
       }
     }
 
-    this.gameOver(1);
+    if ((areAllNonBombCellsUncovered || areAllBombsMarked) && areAllFlagsOnBombs) this.gameOver(1);
   }
 
   renderBoard() {
