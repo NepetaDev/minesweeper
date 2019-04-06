@@ -26,9 +26,15 @@ body {
   line-height: 1.5rem;
   border-radius: 3px;
   background: #151515;
+  color: #fff;
   cursor: pointer;
   margin: 0.2rem;
   font-weight: bold;
+  transition: 0.1s all ease-in-out;
+}
+
+.App span.nothing {
+  color: transparent;
 }
 
 .App span.uncovered {
@@ -42,6 +48,10 @@ body {
 
 .App span:hover {
   opacity: 0.9;
+}
+
+.board {
+  transition: 0.1s all ease-in-out;
 }
 
 .logo {

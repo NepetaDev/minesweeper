@@ -224,7 +224,9 @@ class App extends Component {
       for (let y = 0; y < this.state.board[x].length; y++) {
         let input = this.state.input[x][y];
         let value = this.state.board[x][y];
-        let className = "";
+        let className = "nothing";
+        if (input || this.state.gameOver) className = "";
+
         if (input === 1) {
           className = "uncovered";
           if (value === -1) {
