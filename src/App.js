@@ -246,8 +246,8 @@ class App extends Component {
     if (!this.state.generated) return null;
     let elements = [];
 
-    for (let x = 0; x < this.state.board.length; x++) {
-      for (let y = 0; y < this.state.board[x].length; y++) {
+    for (let y = 0; y < this.state.height; y++) {
+      for (let x = 0; x < this.state.width; x++) {
         let input = this.state.input[x][y];
         let value = this.state.board[x][y];
         let className = "nothing";
@@ -265,7 +265,7 @@ class App extends Component {
           key={"b" + x + "-" + y}
         >{this.getText(value, input)}</span>));
       }
-      elements.push((<br key={"r" + x} />));
+      elements.push((<br key={"r" + y} />));
     }
 
     return elements;
