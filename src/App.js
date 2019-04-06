@@ -18,10 +18,36 @@ class App extends Component {
       gameOver: 0,
       isFlagging: false,
     };
+
+    window.addEventListener('hashchange', this.parseHash.bind(this));
+  }
+
+  parseHash() {
+    let width = 10;
+    let height = 10;
+    let bombs = 10;
+    if (window.location.hash) {
+      var query = {};
+      var pairs = (window.location.hash[0] === '#' ? window.location.hash.substr(1) : window.location.hash).split('&');
+      for (var i = 0; i < pairs.length; i++) {
+          var pair = pairs[i].split('=');
+          query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+      }
+
+      if (query['w']) width = +query['w'];
+      if (query['h']) height = +query['h'];
+      if (query['b']) bombs = +query['b'];
+    }
+
+    this.setState({
+      width: width,
+      height: height,
+      bombs: bombs
+    }, this.generateBoard);
   }
 
   componentDidMount() {
-    this.generateBoard();
+    this.parseHash();
   }
 
   componentDidUpdate() {
@@ -239,7 +265,7 @@ class App extends Component {
           key={"b" + x + "-" + y}
         >{this.getText(value, input)}</span>));
       }
-      elements.push((<br />));
+      elements.push((<br key={"r" + x} />));
     }
 
     return elements;
