@@ -269,7 +269,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" onContextMenu={(e) => {e.preventDefault()}}>
-        <div className="logo"><img className="logo" src="http://nepeta.me/assets/nepeta.png" alt="Nepeta" /></div>
+        <div className="logo"><img className="logo" src="https://nepeta.me/assets/nepeta.png" alt="Nepeta" /></div>
         <h1>Minesweeper</h1>
         {isMobile ? (<button onClick={this.toggleFlagging.bind(this)}>{this.state.isFlagging ? 'Uncover tiles' : 'Place flags'}</button>) : null}
         <div className="wrap">
