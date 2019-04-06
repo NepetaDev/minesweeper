@@ -15,6 +15,7 @@ class App extends Component {
       started: false,
       uncover: false,
       gameOver: 0,
+      isFlagging: false,
     };
   }
 
@@ -81,6 +82,7 @@ class App extends Component {
       started: false,
       uncover: (avoid) ? avoid : false,
       gameOver: 0,
+      isFlagging: false,
     });
   }
 
@@ -92,7 +94,7 @@ class App extends Component {
         case 2:
           return '🚩';
         default:
-         //return '\u00A0';
+          return '\u00A0';
       }
     }
 
@@ -107,6 +109,11 @@ class App extends Component {
   }
 
   uncover(x, y) {
+    if (this.state.isFlagging) {
+      this.flag(x, y);
+      return;
+    }
+
     if (this.state.input[x][y] > 0) return;
 
     if (!this.state.started && this.state.board[x][y] === -1) {
@@ -202,6 +209,12 @@ class App extends Component {
     if ((areAllNonBombCellsUncovered || areAllBombsMarked) && areAllFlagsOnBombs) this.gameOver(1);
   }
 
+  toggleFlagging() {
+    this.setState({
+      isFlagging: !this.state.isFlagging
+    });
+  }
+
   renderBoard() {
     if (!this.state.generated) return null;
     let elements = [];
@@ -255,6 +268,7 @@ class App extends Component {
       <div className="App" onContextMenu={(e) => {e.preventDefault()}}>
         <div className="logo"><img className="logo" src="http://nepeta.me/assets/nepeta.png" alt="Nepeta" /></div>
         <h1>Minesweeper</h1>
+        <button onClick={this.toggleFlagging.bind(this)}>{this.state.isFlagging ? 'Uncover tiles' : 'Place flags'}</button>
         <div className="wrap">
           {this.renderPopup()}
           <div className={"board " + (this.state.gameOver ? "gameOver" : "")}>
